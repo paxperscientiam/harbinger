@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# https://developer.apple.com/library/content/documentation/AppleScript/Conceptual/AppleScriptLangGuide/reference/ASLR_cmds.html
 
 function harbinger() {
     [[ ${#@} -eq 0 ]] && printf '%s\n' "harbinger <message>[,title][,subtitle]" && return 0
@@ -19,4 +19,10 @@ function harbinger() {
     osascript -e "${CMD}"
 
 }
-harbinger "${@}"
+
+## per bpkg guidelines
+if [[ ${BASH_SOURCE[0]} != "${0}" ]]; then
+  export -f harbinger
+else
+  harbinger "${@}"
+fi
